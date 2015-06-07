@@ -1,23 +1,24 @@
 #include <Ultrasonic.h>
 
 
-/*        ~~~ Arduino Tiny Robot Vehicle ~~~
+/*        ~~~ ROBOT Con MOTORES ESPEJO ~~~
                    avoid obstacles
-Information at: http://www.ardumotive.com/tiny-robot.html
-  dev by Vasilakis Michalis, mi.vasilakis@gmail.com
-Project date: 14/12/2013 / Version: 2.0 / updated 21/12/2013
+Information at: https://github.com/tony1254/ardruinos/tree/master/robottelefono
+by Luis Garcia cby@hotmail.es
+Project date: 06/06/2015 / Version: 1.0 / updated 06/06/2015
 */
-//Include libraries
-#include <Ultrasonic.h>
-//Ultrasonic variable_name(Trig_Pin, Echo_Pin)
-Ultrasonic sensor (A0,A1);
+// Entradas
+int arriba=A0;
+int abajo=A1;
+int izquirda=A2;
+int drecha=A3;
+int Q1=0,Q2=0,Q3=0,Q4=0;
 // L293 pins
 const int motorPin1  = 6; // Pin  2 of L293
 const int motorPin2  = 5; // Pin  7 of L293
 const int motorPin3  = 9;  // Pin 10 of L293
 const int motorPin4  = 11;  // Pin 14 of L293
 //Lights
-
 const int redLed   = 3;
 const int greenLed = 4;
 //Speaker
@@ -39,14 +40,19 @@ void setup(){
     pinMode(motorPin4, OUTPUT); 
     pinMode(redLed, OUTPUT);
     pinMode(greenLed, OUTPUT);
+     //Pines de entrada
+  pinMode(arriba, INPUT); // Set our input pins as such
+  pinMode(abajo, INPUT);
+  pinMode(izquirda, INPUT);
+  pinMode(drecha, INPUT);
 }
 void loop(){
-    //Read distanse
-    distance=sensor.Ranging(CM);
-    //Print distance on rerial port for debuging...
-    Serial.println(distance);
+   Q1=pulseIn(arriba, HIGH, 25000);
+   Q2=pulseIn(abajo, HIGH, 25000);
+   Q3=pulseIn(izquirda, HIGH, 25000);
+   Q4=pulseIn(drecha, HIGH, 25000);
     //If object detected < 20 cm, slow down
-    if (distance >=5 && distance < 20){
+    /*if (distance >=5 && distance < 20){
        analogWrite(motorPin1, 180);
        analogWrite(motorPin2, 0);
        analogWrite(motorPin3, 180);
@@ -68,63 +74,61 @@ void loop(){
          // set the LED with the ledState of the variable:
          digitalWrite(redLed, ledState);
        }
-       /*************************************************************************/
+//      *************************************************************************
        digitalWrite(greenLed, LOW);
-    }
-    //If object detected < 5 cm, turn left to avoid object (or right...)
-    else if (distance >= 3 && distance < 12 && var==0){
-       analogWrite(motorPin1, 255);
-       analogWrite(motorPin2, 0);
-       analogWrite(motorPin3, 0);
-       analogWrite(motorPin4, 255);
-       digitalWrite(redLed, HIGH);
-       digitalWrite(greenLed, LOW);
-       tone(speaker, 1000);  //Speaker on
-       var=1;
-       delay(1500); // small delay, change value if necessary
-    }
-        else if (distance >= 3 && distance < 12 && var==1){
-       analogWrite(motorPin1, 0);
-       analogWrite(motorPin2, 255);
-       analogWrite(motorPin3, 255);
-       analogWrite(motorPin4, 0);
-       digitalWrite(redLed, HIGH);
-       digitalWrite(greenLed, LOW);
-       tone(speaker, 1000);  //Speaker on
-       var=2;
-       delay(2700); // small delay, change value if necessary
-    }
-     else if (distance >= 3 && distance < 12 && var==2){
-       analogWrite(motorPin1, 0);
-       analogWrite(motorPin2, 255);
-       analogWrite(motorPin3, 255);
-       analogWrite(motorPin4, 0);
-       digitalWrite(redLed, HIGH);
-       digitalWrite(greenLed, LOW);
-       tone(speaker, 1000);  //Speaker on
-       var=2;
-       delay(1300); // small delay, change value if necessary
-    }
-    else if (distance <=1){
-       analogWrite(motorPin1, 0);
-       analogWrite(motorPin2, 255);
-       analogWrite(motorPin3, 0);
-       analogWrite(motorPin4, 255);
-       digitalWrite(redLed, HIGH);
-       digitalWrite(greenLed, LOW);
-       tone(speaker, 1000);  //Speaker on
-       delay(1000); // small delay, change value if necessary
-    }
-    //No object detected? Ok... all crear to move forward!  
-    else {
-       analogWrite(motorPin1, 255);
+    }*/
+
+//ADELANTE
+ if (Q1<12500 && Q2>12500 && Q3<12500 && Q4<12500){
+      analogWrite(motorPin1, 255);
        analogWrite(motorPin2, 0);
        analogWrite(motorPin3, 255);
        analogWrite(motorPin4, 0);
        digitalWrite(redLed, LOW);
        digitalWrite(greenLed, HIGH);
        noTone(speaker); //Speaker off
-       var=0;
+    }
+//DERECHA
+     else if (Q1<12500 && Q2>12500 && Q3>12500 && Q4<12500){
+       analogWrite(motorPin1, 0);
+       analogWrite(motorPin2, 255);
+       analogWrite(motorPin3, 255);
+       analogWrite(motorPin4, 0);
+       digitalWrite(redLed, HIGH);
+       digitalWrite(greenLed, LOW);
+ noTone(speaker); //Speaker off
+    }    
+//IZQUIERDA
+        else if (Q1<12500 && Q2<12500 && Q3>12500 && Q4<12500){
+       analogWrite(motorPin1, 255);
+       analogWrite(motorPin2, 0);
+       analogWrite(motorPin3, 0);
+       analogWrite(motorPin4, 255);
+       digitalWrite(redLed, HIGH);
+       digitalWrite(greenLed, LOW);
+ noTone(speaker); //Speaker off
+
+    }
+
+//ATRAS
+    else if (Q1<12500 && Q2<12500 && Q3<12500 && Q4>12500){
+       analogWrite(motorPin1, 0);
+       analogWrite(motorPin2, 255);
+       analogWrite(motorPin3, 0);
+       analogWrite(motorPin4, 255);
+       digitalWrite(redLed, HIGH);
+       digitalWrite(greenLed, HIGH);
+      tone(speaker, 1000);  //Speaker on
+     }
+//ALTO
+else {
+       analogWrite(motorPin1, 0);
+       analogWrite(motorPin2, 0);
+       analogWrite(motorPin3, 0);
+       analogWrite(motorPin4, 0);
+       digitalWrite(redLed, LOW);
+       digitalWrite(greenLed, LOW);
+ noTone(speaker); //Speaker off
     }
     delay(50);
 }
