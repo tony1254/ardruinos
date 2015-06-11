@@ -79,7 +79,7 @@ void loop(){
     }*/
 
 //ADELANTE
- if (Q1<12500 && Q2>12500 && Q3<12500 && Q4<12500){
+ if (Q1<200 && Q2>200 && Q3<200 && Q4<200){
       analogWrite(motorPin1, 255);
        analogWrite(motorPin2, 0);
        analogWrite(motorPin3, 255);
@@ -89,7 +89,7 @@ void loop(){
        noTone(speaker); //Speaker off
     }
 //DERECHA
-     else if (Q1<12500 && Q2>12500 && Q3>12500 && Q4<12500){
+     else if (Q1<200 && Q2>200 && Q3>200 && Q4<200){
        analogWrite(motorPin1, 0);
        analogWrite(motorPin2, 255);
        analogWrite(motorPin3, 255);
@@ -99,7 +99,7 @@ void loop(){
  noTone(speaker); //Speaker off
     }    
 //IZQUIERDA
-        else if (Q1<12500 && Q2<12500 && Q3>12500 && Q4<12500){
+        else if (Q1<200 && Q2<200 && Q3>200 && Q4<200){
        analogWrite(motorPin1, 255);
        analogWrite(motorPin2, 0);
        analogWrite(motorPin3, 0);
@@ -111,7 +111,7 @@ void loop(){
     }
 
 //ATRAS
-    else if (Q1<12500 && Q2<12500 && Q3<12500 && Q4>12500){
+    else if (Q1<200 && Q2<200 && Q3<200 && Q4>200){
        analogWrite(motorPin1, 0);
        analogWrite(motorPin2, 255);
        analogWrite(motorPin3, 0);
