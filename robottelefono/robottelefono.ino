@@ -1,4 +1,3 @@
-#include <Ultrasonic.h>
 
 
 /*        ~~~ ROBOT Con MOTORES ESPEJO ~~~
@@ -8,11 +7,8 @@ by Luis Garcia cby@hotmail.es
 Project date: 06/06/2015 / Version: 1.0 / updated 06/06/2015
 */
 // Entradas
-int arriba=A0;
-int abajo=A1;
-int izquirda=A2;
-int drecha=A3;
-int Q1=0,Q2=0,Q3=0,Q4=0;
+
+
 // L293 pins
 const int motorPin1  = 6; // Pin  2 of L293
 const int motorPin2  = 5; // Pin  7 of L293
@@ -41,16 +37,29 @@ void setup(){
     pinMode(redLed, OUTPUT);
     pinMode(greenLed, OUTPUT);
      //Pines de entrada
-  pinMode(arriba, INPUT); // Set our input pins as such
+/*  pinMode(arriba, INPUT); // Set our input pins as such
   pinMode(abajo, INPUT);
   pinMode(izquirda, INPUT);
-  pinMode(drecha, INPUT);
+  pinMode(drecha, INPUT);*/
 }
 void loop(){
-   Q1=pulseIn(arriba, HIGH, 25000);
-   Q2=pulseIn(abajo, HIGH, 25000);
-   Q3=pulseIn(izquirda, HIGH, 25000);
-   Q4=pulseIn(drecha, HIGH, 25000);
+    int sensorValue = analogRead(A0);
+    // Convert the analog reading (which goes from 0 - 1023) to a voltage (0 - 5V):
+  float   Q1 = sensorValue * (5.0 / 1023.0);
+     sensorValue = analogRead(A1);
+  float    Q2 = sensorValue * (5.0 / 1023.0);
+     sensorValue = analogRead(A2);
+ float     Q3 = sensorValue * (5.0 / 1023.0);
+     sensorValue = analogRead(A3);
+ float     Q4 = sensorValue * (5.0 / 1023.0);
+  // print out the value you read:
+    Serial.println("----");
+  Serial.println(Q1);
+  Serial.println(Q2);
+  Serial.println(Q3);
+  Serial.println(Q4);
+       Serial.println("----");
+  
     //If object detected < 20 cm, slow down
     /*if (distance >=5 && distance < 20){
        analogWrite(motorPin1, 180);
@@ -79,7 +88,7 @@ void loop(){
     }*/
 
 //ADELANTE
- if (Q1<200 && Q2>200 && Q3<200 && Q4<200){
+ if (Q1<3.20 && Q2<3.20 && Q3>3.20 && Q4<3.20){
       analogWrite(motorPin1, 255);
        analogWrite(motorPin2, 0);
        analogWrite(motorPin3, 255);
@@ -89,7 +98,7 @@ void loop(){
        noTone(speaker); //Speaker off
     }
 //DERECHA
-     else if (Q1<200 && Q2>200 && Q3>200 && Q4<200){
+     else if (Q1<3.20 && Q2>3.20 && Q3>3.20 && Q4<3.20){
        analogWrite(motorPin1, 0);
        analogWrite(motorPin2, 255);
        analogWrite(motorPin3, 255);
@@ -99,7 +108,7 @@ void loop(){
  noTone(speaker); //Speaker off
     }    
 //IZQUIERDA
-        else if (Q1<200 && Q2<200 && Q3>200 && Q4<200){
+        else if (Q1<3.20 && Q2>3.20 && Q3<3.20 && Q4<3.20){
        analogWrite(motorPin1, 255);
        analogWrite(motorPin2, 0);
        analogWrite(motorPin3, 0);
@@ -111,7 +120,7 @@ void loop(){
     }
 
 //ATRAS
-    else if (Q1<200 && Q2<200 && Q3<200 && Q4>200){
+    else if (Q1>3.20 && Q2<3.20 && Q3<3.20 && Q4<3.20){
        analogWrite(motorPin1, 0);
        analogWrite(motorPin2, 255);
        analogWrite(motorPin3, 0);
@@ -130,5 +139,5 @@ else {
        digitalWrite(greenLed, LOW);
  noTone(speaker); //Speaker off
     }
-    delay(50);
+    delay(600);
 }
