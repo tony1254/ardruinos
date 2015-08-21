@@ -118,10 +118,10 @@ void standup()
 {
   up2 = 90;
   up3 = 90;
-  hip1.write(70);
-  hip2.write(80);
-  hip3.write(120);
-  hip4.write(70);
+  hip1.write(90);
+  hip2.write(90);
+  hip3.write(90);
+  hip4.write(90);
   for(up = 90; up < 170; up++)
   {
     knee11.write(up);
@@ -142,9 +142,9 @@ void standup()
 void sleep()
 {
   // hips
-  hip1.write(70);
+  hip1.write(90);
   hip2.write(90);
-  hip3.write(70);
+  hip3.write(90);
   hip4.write(90);
   // knees
   knee11.write(0);
@@ -155,37 +155,77 @@ void sleep()
 //////////////////////////////////////
 void stand()
 {
-  hip1.write(70);
+  hip1.write(90);
   knee11.write(170);
     delay(20);
-  hip2.write(80);
-  knee21.write(20);
+  hip2.write(70);
+  knee21.write(10);
     delay(20);
-  hip3.write(80);
+  hip3.write(90);
   knee31.write(170);
     delay(20);
-  hip4.write(70);
-  knee41.write(20); 
+  hip4.write(120);
+  knee41.write(10); 
     delay(20);
 }
 //////////////////////////////////////
-void forward()
+void adelante()
 {
-  // lift front right knee, move front right hip forward and rear right hip backward, lower front right knee
-  knee31.write(140);  // lower the diagonal opposite leg a bit to keep the balance
-  knee11.write(140);
+   // lift front right knee, move front right hip forward and rear right hip backward, lower front right knee
+  knee41.write(50);  // lower the diagonal opposite leg a bit to keep the balance
+  knee21.write(50);
   idle();
-  hip1.write(45);
+  hip2.write(80);
+  hip3.write(115);
+  idle();
+  knee21.write(10);
+  knee41.write(10);  // put the diagonal opposite leg down to keep the balance
+  // lift rear left knee, move rear left hip forward and front right hip backward, lower rear left knee 
+  // lower the diagonal opposite leg a bit to keep the balance
+  knee41.write(50); 
+  idle();
+  hip4.write(150);
+  hip2.write(145);
+  idle();
+  knee41.write(10);
+  knee41.write(10);  // put the diagonal opposite leg down to keep the balance
+  // lift front left knee, move front left hip forward and rear left hip backward, lower front left knee
+  knee31.write(130);  // lower the diagonal opposite leg a bit to keep the balance
+  knee11.write(120);
+  idle();
+  hip1.write(85);
   hip4.write(90);
   idle();
   knee11.write(170);
   knee31.write(170);  // put the diagonal opposite leg down to keep the balance
-  // lift rear left knee, move rear left hip forward and front right hip backward, lower rear left knee 
-  knee11.write(140);  // lower the diagonal opposite leg a bit to keep the balance
-  knee31.write(140); 
+  // lift rear right knee, move rear right hip forward and front left hip backward, lower rear right knee 
+  knee11.write(120);  // lower the diagonal opposite leg a bit to keep the balance 
+  knee31.write(130); 
   idle();
-  hip3.write(120);
-  hip1.write(110);
+  hip3.write(55);
+  hip1.write(55);
+  idle();
+  knee31.write(170);
+  knee11.write(170);  // put the diagonal opposite leg down to keep the balance
+  idle();
+  idle();
+  
+
+   // lift front right knee, move front right hip forward and rear right hip backward, lower front right knee
+  knee31.write(130);  // lower the diagonal opposite leg a bit to keep the balance
+  knee11.write(120);
+  idle();
+  hip1.write(90);
+  hip4.write(65);
+  idle();
+  knee11.write(170);
+  knee31.write(170);  // put the diagonal opposite leg down to keep the balance
+  // lift rear left knee, move rear left hip forward and front right hip backward, lower rear left knee 
+    // lower the diagonal opposite leg a bit to keep the balance
+  knee31.write(130); 
+  idle();
+  hip3.write(20);
+  hip1.write(35);
   idle();
   knee31.write(170);
   knee31.write(170);  // put the diagonal opposite leg down to keep the balance
@@ -193,21 +233,24 @@ void forward()
   knee41.write(50);  // lower the diagonal opposite leg a bit to keep the balance
   knee21.write(50);
   idle();
-  hip2.write(110);
-  hip3.write(60);
+  hip2.write(95);
+  hip3.write(90);
   idle();
-  knee21.write(20);
-  knee41.write(20);  // put the diagonal opposite leg down to keep the balance
+  knee21.write(10);
+  knee41.write(10);  // put the diagonal opposite leg down to keep the balance
   // lift rear right knee, move rear right hip forward and front left hip backward, lower rear right knee 
   knee21.write(50);  // lower the diagonal opposite leg a bit to keep the balance 
   knee41.write(50); 
   idle();
-  hip4.write(30);
-  hip2.write(50);
+  hip4.write(125);
+  hip2.write(125);
   idle();
   knee41.write(20);
-  knee21.write(20);  // put the diagonal opposite leg down to keep the balance
+  knee21.write(10);  // put the diagonal opposite leg down to keep the balance
   idle();
+  idle();
+  
+
 }
 /////////////////////////////////////
 void rightturn()
@@ -243,37 +286,44 @@ void rightturn()
   idle();
 }
 /////////////////////////////////////
-void leftturn()
+void giroizquirda()
 {
-  // lift front right knee, move front right hip forward and rear right hip backward, lower front right knee
-  knee11.write(150);
-  idle();
-  hip1.write(30);
-  hip4.write(100);
-  idle();
+  //Centra todas las patas
+   hip1.write(90);
   knee11.write(170);
-  // lift rear left knee, move rear left hip forward and front right hip backward, lower rear left knee 
-  knee31.write(150); 
-  idle();
-  hip3.write(90);
-  hip1.write(120);
-  idle();
-  knee31.write(170);
-  // lift front left knee, move front left hip forward and rear left hip backward, lower front left knee
-  knee21.write(40);
-  idle();
+    delay(20);
   hip2.write(90);
-  hip3.write(60);
+  knee21.write(10);
+    delay(20);
+  hip3.write(90);
+  knee31.write(170);
+    delay(20);
+  hip4.write(90);
+  knee41.write(10); 
+    delay(20);
   idle();
-  knee21.write(20);
-  // lift rear right knee, move rear right hip forward and front left hip backward, lower rear right knee  
-  knee41.write(40); 
   idle();
-  hip4.write(30);
-  hip2.write(80);
+    /////////////Mueve pata adelante derecha///////////////
+    knee11.write(130);
+    knee31.write(130);
+    idle();
+  hip1.write(120);
+  hip3.write(120);
+    idle();
+  knee11.write(170);
+  knee31.write(170);
+/////////////Mueve pata adelante izquierda///////////////  
+    idle();
+  knee21.write(50);
+  knee41.write(50);
+    idle();
+  hip2.write(145);  
+  hip4.write(145);  
+    idle();
+  knee21.write(10);
+  knee41.write(10);
   idle();
-  knee41.write(20);
-  idle();
+    ////////////////////////////    
 }
 /////////////////////////////////////
 void backward()
@@ -393,21 +443,43 @@ void sweep()
 ////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 void prueba(){
-  hip1.write(90);
-  knee11.write(180); //drecha
+  //Centra todas las patas
+   hip1.write(90);
+  knee11.write(170);
     delay(20);
   hip2.write(90);
-  knee21.write(0);//izquierda
+  knee21.write(10);
     delay(20);
   hip3.write(90);
-  knee31.write(180);//izquierda atras
+  knee31.write(170);
     delay(20);
   hip4.write(90);
-  knee41.write(0); //derecha atras
+  knee41.write(10); 
     delay(20);
+  idle();
+  ///// mueve brazo derecho
+knee11.write(120);
+idle();
+hip1.write(120);
+idle();
+knee11.write(170);
+idle();
 }
 void loop()
-{     forward();
+{   
+
+  adelante();
+  adelante();
+  adelante();
+  adelante();
+  adelante();
+  
+ giroizquirda();
+ giroizquirda();
+ giroizquirda();
+ giroizquirda();
+ giroizquirda();
+
         delay(1000);
 
  
